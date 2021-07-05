@@ -17,8 +17,14 @@
     <div>
       <input type="checkbox" id="checkbox" v-model="checked">
       <label for="checkbox">Отобразить экранную клавиатуру</label>
-      <div class="cart-block" v-show="checked">туту ррарра
-        
+      <div class="cart-block" v-show="checked">
+        <button v-for="number in numbers" v-bind:key="number" @click="operand0 = number, selectedOperand()">{{number}}</button>
+        <br>
+        <input type="radio" id="one" value="operand1" v-model="picked">
+        <label for="one">operand1</label>
+        <br>
+        <input type="radio" id="two" value="operand2" v-model="picked">
+        <label for="two">operand2</label>
       </div>
     </div>
   </div>
@@ -33,7 +39,20 @@
            operand2: 0,
            result: 0,
            checked: false,
+           picked: 0,
+           operand0: 0,
+           numbers: [0,1,2,3,4,5,6,7,8,9],
        }
+   },
+   methods: {
+     selectedOperand() {
+       if(this.picked === "operand1") {
+         this.operand1 = this.operand0
+       }
+       if(this.picked === "operand2") {
+         this.operand2 = this.operand0
+       }
+     }
    }
  }
 </script>
