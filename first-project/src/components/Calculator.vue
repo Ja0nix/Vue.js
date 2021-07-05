@@ -14,6 +14,13 @@
         <button @click="result = Math.pow(operand1, operand2)">В степень</button>  
         <button @click="result = Math.floor(operand1/operand2)">Целочисленное деление</button>  
     </div>
+    <div>
+      <input type="checkbox" id="checkbox" v-model="checked">
+      <label for="checkbox">Отобразить экранную клавиатуру</label>
+      <div class="cart-block" v-show="checked">туту ррарра
+        
+      </div>
+    </div>
   </div>
 </template>
 
@@ -25,6 +32,7 @@
            operand1: 0,
            operand2: 0,
            result: 0,
+           checked: false,
        }
    }
  }
