@@ -19,6 +19,7 @@
       <label for="checkbox">Отобразить экранную клавиатуру</label>
       <div class="cart-block" v-show="checked">
         <button v-for="number in numbers" v-bind:key="number" @click="operand0 = number, selectedOperand()">{{number}}</button>
+        <button @click="selectedOperandDelete()">Удалить</button>
         <br>
         <input type="radio" id="one" value="operand1" v-model="picked">
         <label for="one">operand1</label>
@@ -51,6 +52,14 @@
        }
        if(this.picked === "operand2") {
          this.operand2 = this.operand0
+       }
+     },
+     selectedOperandDelete() {
+       if(this.picked === "operand1") {
+         this.operand1 = 0
+       }
+       if(this.picked === "operand2") {
+         this.operand2 = 0
        }
      }
    }
