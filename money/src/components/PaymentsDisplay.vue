@@ -18,6 +18,12 @@
                 <td>{{ item.category }}</td>
                 <td>{{ item.value }}</td>
             </tr>
+            <tr class="item">
+                <td>Total</td>
+                <td></td>
+                <td></td>
+                <td>{{ getFPV }}</td>
+            </tr>
         </tbody>
     </table>
   </div>
@@ -32,7 +38,11 @@ export default {
         default: () => ({}),
     },
     },
-
+    computed: {
+        getFPV(){
+            return this.$store.getters.getFullPaymentsValue
+        }
+    }
  }
 </script>
  

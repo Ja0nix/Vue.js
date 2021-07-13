@@ -1,7 +1,11 @@
 <template>
   <div>
     <input placeholder="Value" v-model="value" />
-    <input placeholder="Category" v-model="category" />
+    <select v-model="category">
+      <option v-for="(item,idx) in categories" :value="item" :key="idx">
+       {{ item }}
+      </option>
+    </select>
     <input placeholder="Date" v-model="date" />
     <button @click="onSaveClick">Save!</button>
   </div>
@@ -9,10 +13,11 @@
  
 <script>
 export default {
+  props: ['categories'],
   data () {
     return {
       value: '',
-      category: '',
+      category: 'Food',
       date: '',
     }
   },
@@ -33,7 +38,7 @@ export default {
         date: this.date || this.getCurrentDate,
       }
       this.$emit('addNewPayment', data)
-    }
+    },
   }
 
 }
@@ -49,7 +54,7 @@ export default {
         padding: 15px 20px;
         margin: 30px auto;
     }
-    input {
+    input, select {
         background: linear-gradient(45deg, #438f8d31, #602c822c);
         box-shadow: 0 0 20px rgba(0,0,0,0.1);
         color: black;
