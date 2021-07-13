@@ -73,8 +73,9 @@ export default {
     created () {
       // this.paymentsList = this.fetchData()
       // this.$store.commit('setPaymentsListData', this.fetchData())
-      this.updatePaymentsListData(this.fetchData())
+      // this.updatePaymentsListData(this.fetchData())
       this.$store.dispatch('fetchCategories')
+      this.$store.dispatch('fetchPaymentsData')
     },
 
   }
