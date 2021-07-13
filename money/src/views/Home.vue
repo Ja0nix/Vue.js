@@ -6,6 +6,7 @@
     <main>
       <button :class="[$style.newCost]" @click="show = !show">ADD NEW COST+</button>
       <AddPaymentForm @addNewPayment="addNewPaymentD" v-show="show" :categories="categoryList" />
+      <AddCategory @addNewCategory="addNewCat" v-show="show" />
       <PaymentsDisplay :items="paymentsList" />
     </main>
   </div>
@@ -17,12 +18,14 @@ import { mapMutations} from 'vuex'
 // @ is an alias to /src
 import PaymentsDisplay from '@/components/PaymentsDisplay.vue'
 import AddPaymentForm from '@/components/AddPaymentForm.vue'
+import AddCategory from '@/components/AddCategory.vue'
 
 export default {
   name: 'Home',
   components: {
     PaymentsDisplay,
-    AddPaymentForm
+    AddPaymentForm,
+    AddCategory
   },
   data () {
     return {
@@ -34,9 +37,13 @@ export default {
      ...mapMutations({
       updatePaymentsListData:'setPaymentsListData',
       addNewPaymentData: 'addNewPaymentData',
+      addNewCategoryData: 'addNewCategoryData',
      }),
      addNewPaymentD(value){
        this.addNewPaymentData(value)
+     },
+     addNewCat(value){
+       this.addNewCategoryData(value)
      },
     fetchData () {
       return [
