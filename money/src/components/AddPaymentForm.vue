@@ -1,6 +1,6 @@
 <template>
   <div>
-    <input placeholder="Value" v-model="value" />
+    <input placeholder="Value" v-model="value"  />
     <select v-model="category">
       <option v-for="(item,idx) in categories" :value="item" :key="idx">
        {{ item }}
@@ -44,11 +44,35 @@ export default {
         date: this.date || this.getCurrentDate,
       }
       this.$emit('addNewPayment', data)
+    },
+    onLoadSave(){
+      console.log(this.value.length)
+      if(this.value.length != 0 && this.category.length != 0) {
+        const data = {
+          value: +this.value,
+          category: this.category,
+          date: this.date || this.getCurrentDate,
+        }
+        this.$emit('addNewPayment', data)
+      }
+
     }
   },
   beforeMount() {
     this.date = this.getCurrentDate
-  }
+    // this.onLoadSave()
+  },
+  mounted() {
+           this.onLoadSave()
+
+},
+//   updated: function () {
+//   this.$nextTick(function () {
+//     // Код, который будет запущен только после
+//     // обновления всех представлений
+//     this.onLoadSave()
+//   })
+// }
 
 }
 </script>

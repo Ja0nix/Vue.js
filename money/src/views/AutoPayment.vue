@@ -86,16 +86,21 @@ export default {
       return this.$store.getters.getCategoryList
     },
   },
-  beforeMount(){
-        this.addNewPaymentD()
-    },
-  created () {
+  beforeCreate () {
       // this.paymentsList = this.fetchData()
       // this.$store.commit('setPaymentsListData', this.fetchData())
       // this.updatePaymentsListData(this.fetchData())
       this.$store.dispatch('fetchCategories')
       this.$store.dispatch('fetchPaymentsData')
     },
+    
+    // created: function () {
+    //     this.$nextTick(function () {
+    //     // Код, который будет запущен только после
+    //     // обновления всех представлений
+    //     this.addNewPaymentD()
+    // })
+// }
 
   }
 </script>
