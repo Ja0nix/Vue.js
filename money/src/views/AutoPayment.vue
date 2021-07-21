@@ -87,8 +87,8 @@ export default {
     },
   },
   beforeMount(){
-    this.addNewPaymentD()
- },
+        this.addNewPaymentD()
+    },
   created () {
       // this.paymentsList = this.fetchData()
       // this.$store.commit('setPaymentsListData', this.fetchData())
@@ -106,6 +106,7 @@ export default {
   }
   .title {
     font-size: 40px;
+    margin-bottom: 50px;
   }
   .newCost {
     background: linear-gradient(45deg, #49a09d, #5f2c82);

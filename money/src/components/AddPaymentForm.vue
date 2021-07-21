@@ -45,6 +45,9 @@ export default {
       }
       this.$emit('addNewPayment', data)
     }
+  },
+  beforeMount() {
+    this.date = this.getCurrentDate
   }
 
 }

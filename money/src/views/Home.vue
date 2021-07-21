@@ -103,6 +103,7 @@ export default {
   }
   .title {
     font-size: 40px;
+    margin-bottom: 50px;
   }
   .newCost {
     background: linear-gradient(45deg, #49a09d, #5f2c82);
