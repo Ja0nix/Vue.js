@@ -4,10 +4,16 @@
       <div :class="[$style.title]">My personal costs</div>
     </header>
     <main>
+      <a href="/add/payment/Food?value=200">Food 200</a>
       <button :class="[$style.newCost]" @click="show = !show">ADD NEW COST+</button>
       <AddPaymentForm @addNewPayment="addNewPaymentD" v-show="show" :categories="categoryList" />
       <AddCategory @addNewCategory="addNewCat" v-show="show" />
       <PaymentsDisplay :items="paymentsList" />
+
+      <div id="nav">
+        <router-link to="/">Home</router-link> |
+        <router-link to="/about">About</router-link>
+      </div> 
     </main>
   </div>
 
@@ -67,6 +73,7 @@ export default {
     // addNewPayment (data) {
     //   this.paymentsList = [...this.paymentsList, data]
     // }
+   
 
   },
   computed: {
@@ -75,7 +82,7 @@ export default {
     },
     categoryList(){
       return this.$store.getters.getCategoryList
-    }
+    },
   },
     created () {
       // this.paymentsList = this.fetchData()
@@ -83,6 +90,7 @@ export default {
       // this.updatePaymentsListData(this.fetchData())
       this.$store.dispatch('fetchCategories')
       this.$store.dispatch('fetchPaymentsData')
+      this.dataDirectlyAdded()
     },
 
   }

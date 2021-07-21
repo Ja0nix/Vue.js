@@ -16,8 +16,8 @@ export default {
   props: ['categories'],
   data () {
     return {
-      value: '',
-      category: 'Food',
+      value: this.$route.query.value,
+      category: this.$route.params.category,
       date: '',
     }
   },
@@ -28,7 +28,13 @@ export default {
       const m = today.getMonth() + 1
       const y = today.getFullYear()
       return `${d}.${m}.${y}`
-    }
+    },
+    // categoryDirectLinkAddPayment() {
+    //   return this.$route.params.category
+    // },
+    // sumDirectLinkAddPayment() {
+    //   return this.$route.params.sum
+    // }
   },
   methods: {
     onSaveClick () {
@@ -38,7 +44,7 @@ export default {
         date: this.date || this.getCurrentDate,
       }
       this.$emit('addNewPayment', data)
-    },
+    }
   }
 
 }
