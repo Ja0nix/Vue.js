@@ -30,7 +30,7 @@ import AddPaymentForm from '@/components/AddPaymentForm.vue'
 import AddCategory from '@/components/AddCategory.vue'
 
 export default {
-  name: 'Home',
+  name: 'AutoPayment',
   components: {
     PaymentsDisplay,
     AddPaymentForm,
@@ -39,7 +39,7 @@ export default {
   data () {
     return {
       // paymentsList: [],
-      show: false,
+      show: true,
     }
   },
   methods: {
@@ -86,6 +86,9 @@ export default {
       return this.$store.getters.getCategoryList
     },
   },
+  beforeMount(){
+    this.addNewPaymentD()
+ },
   created () {
       // this.paymentsList = this.fetchData()
       // this.$store.commit('setPaymentsListData', this.fetchData())
