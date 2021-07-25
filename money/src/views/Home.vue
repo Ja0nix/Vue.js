@@ -92,6 +92,7 @@ export default {
       // this.updatePaymentsListData(this.fetchData())
       this.$store.dispatch('fetchCategories')
       this.$store.dispatch('fetchPaymentsData')
+      this.$modal.show()
     },
 
   }
