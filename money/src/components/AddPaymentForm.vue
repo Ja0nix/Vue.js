@@ -45,28 +45,25 @@ export default {
       }
       this.$emit('addNewPayment', data)
     },
-    onLoadSave(){
-      console.log(this.value.length)
-      if(this.value.length != 0 && this.category.length != 0) {
-        const data = {
-          value: +this.value,
-          category: this.category,
-          date: this.date || this.getCurrentDate,
-        }
-        this.$emit('addNewPayment', data)
-      }
+  //   onLoadSave(){
+  //     console.log(this.value.length)
+  //     console.log(this.date + this.category + this.value) 
+  //     if(this.value.length != 0 && this.category.length != 0) {
+  //       const data = {
+  //         value: +this.value,
+  //         category: this.category,
+  //         date: this.date || this.getCurrentDate,
+  //       }
+  //       this.$emit('addNewPaymentAuto', data)
+  //     }
 
-    }
+  //   }
   },
-  beforeMount() {
+  created() {
     this.date = this.getCurrentDate
-    // this.onLoadSave()
   },
-  mounted() {
-           this.onLoadSave()
-
-},
-//   updated: function () {
+  
+//   mounted: function () {
 //   this.$nextTick(function () {
 //     // Код, который будет запущен только после
 //     // обновления всех представлений

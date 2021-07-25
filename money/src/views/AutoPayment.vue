@@ -93,7 +93,17 @@ export default {
       this.$store.dispatch('fetchCategories')
       this.$store.dispatch('fetchPaymentsData')
     },
-    
+    // mounted () {
+    //     this.addNewPaymentD()
+    // }
+    // mounted: function () {
+    //     this.$nextTick(function () {
+    //         // Код, который будет запущен только после
+    //         // обновления всех представлений
+    //         this.addNewPaymentD()
+    //     })
+    //  },
+            
     // created: function () {
     //     this.$nextTick(function () {
     //     // Код, который будет запущен только после
