@@ -7,6 +7,7 @@
                 <th>Date</th>
                 <th>Category</th>
                 <th>Value</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -17,12 +18,14 @@
                 <td>{{ item.date }}</td>
                 <td>{{ item.category }}</td>
                 <td>{{ item.value }}</td>
+                <td><button @click="showPaymentMenu">Edit</button></td>
             </tr>
             <tr class="item">
                 <td>Total</td>
                 <td></td>
                 <td></td>
                 <td>{{ getFPV }}</td>
+                <th></th>
             </tr>
         </tbody>
     </table>
@@ -30,6 +33,8 @@
 </template>
  
 <script>
+
+
 export default {
    name: 'PaymentsDisplay',
    props: {
@@ -41,6 +46,11 @@ export default {
     computed: {
         getFPV(){
             return this.$store.getters.getFullPaymentsValue
+        }
+    },
+    methods: {
+        showPaymentMenu () {
+            this.$modal.show('add', {header: 'Edit my cost'})
         }
     }
  }

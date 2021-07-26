@@ -7,13 +7,22 @@ export default {
       this.installed = true
    
       Vue.prototype.$modal = {
-        show () {
-          console.log('Shown!')
+        // создаем новый экземпляр Vue
+        // который будет выступать в роли паттерна EventBus
+        EventBus: new Vue(),
+   
+        show (name, settings) {
+          // сообщаем, что наступило событие shown
+          // вместе с событием передаем параметры из аргументов функции
+          this.EventBus.$emit('show', { name, ...settings})
         },
    
         hide () {
-          console.log('Hiden!')
+          // сообщаем, что наступило событие hide
+          this.EventBus.$emit('hide')
         }
       }
     }
-  }  
+  }
+   
+  

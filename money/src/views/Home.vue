@@ -9,9 +9,10 @@
       <a href="/add/payment/Entertainment?value=2000" :class="[$style.newCost]">Entertainment 2000</a>
       <br>
       <button :class="[$style.newCost]" @click="show = !show">ADD NEW COST+</button>
-      <AddPaymentForm @addNewPayment="addNewPaymentD" v-show="show" :categories="categoryList" />
+      <!-- <AddPaymentForm @addNewPayment="addNewPaymentD" v-show="show" :categories="categoryList" /> -->
       <AddCategory @addNewCategory="addNewCat" v-show="show" />
       <PaymentsDisplay :items="paymentsList" />
+      <PaymentMenu @addNewPayment="addNewPaymentD" :categories="categoryList" v-show="show" @close="show=!show"/>
 
       <div id="nav">
         <router-link to="/">Home</router-link> |
@@ -26,15 +27,17 @@
 import { mapMutations} from 'vuex'
 // @ is an alias to /src
 import PaymentsDisplay from '@/components/PaymentsDisplay.vue'
-import AddPaymentForm from '@/components/AddPaymentForm.vue'
+// import AddPaymentForm from '@/components/AddPaymentForm.vue'
 import AddCategory from '@/components/AddCategory.vue'
+import PaymentMenu from '@/components/PaymentMenu.vue'
 
 export default {
   name: 'Home',
   components: {
     PaymentsDisplay,
-    AddPaymentForm,
-    AddCategory
+    // AddPaymentForm,
+    AddCategory,
+    PaymentMenu
   },
   data () {
     return {
@@ -92,7 +95,8 @@ export default {
       // this.updatePaymentsListData(this.fetchData())
       this.$store.dispatch('fetchCategories')
       this.$store.dispatch('fetchPaymentsData')
-      this.$modal.show()
+      this.$modal.EventBus.$on('show', this.onShown)
+      this.$modal.EventBus.$on('hide', this.onHide)
     },
 
   }
