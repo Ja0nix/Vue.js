@@ -8,11 +8,11 @@
       <a href="/add/payment/Transport?value=50" :class="[$style.newCost]">Transport 50</a> | 
       <a href="/add/payment/Entertainment?value=2000" :class="[$style.newCost]">Entertainment 2000</a>
       <br>
-      <button :class="[$style.newCost]" @click="show = !show">ADD NEW COST+</button>
-      <!-- <AddPaymentForm @addNewPayment="addNewPaymentD" v-show="show" :categories="categoryList" /> -->
+      <button :class="[$style.newCost]" @click="showPaymentForm">ADD NEW COST+</button>
+
       <AddCategory @addNewCategory="addNewCat" v-show="show" />
       <PaymentsDisplay :items="paymentsList" />
-      <PaymentMenu @addNewPayment="addNewPaymentD" :categories="categoryList" v-show="show" @close="show=!show"/>
+      <PaymentMenu @addNewPayment="addNewPaymentD" :categories="categoryList" v-if="showModalName" :settings="settings"/>
 
       <div id="nav">
         <router-link to="/">Home</router-link> |
@@ -42,7 +42,8 @@ export default {
   data () {
     return {
       // paymentsList: [],
-      show: false,
+      showModalName: '',
+      settings: {}
     }
   },
   methods: {
@@ -58,27 +59,35 @@ export default {
        this.addNewCategoryData(value)
      },
     fetchData () {
-      return [
-        {
-          date: '28.03.2020',
-          category: 'Food',
-          value: 169,
-        },
-        {
-          date: '24.03.2020',
-          category: 'Transport',
-          value: 360,
-        },
-        {
-          date: '24.03.2020',
-          category: 'Food',
-          value: 532,
-        },
-      ]
+        return [
+          {
+            date: '28.03.2020',
+            category: 'Food',
+            value: 169,
+          },
+          {
+            date: '24.03.2020',
+            category: 'Transport',
+            value: 360,
+          },
+          {
+            date: '24.03.2020',
+            category: 'Food',
+            value: 532,
+          },
+        ]
     },
-    // addNewPayment (data) {
-    //   this.paymentsList = [...this.paymentsList, data]
-    // }
+    onShown(settings) {
+      this.showModalName = settings.name
+      this.settings = settings
+    },
+    onHide() {
+      this.showModalName = ''
+      this.settings = {}
+    },
+    showPaymentForm() {
+      this.$modal.show('add', {name: 'add', header: 'Add new cost'})
+    },
 
   },
   computed: {
