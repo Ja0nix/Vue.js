@@ -43,7 +43,8 @@ export default {
     return {
       // paymentsList: [],
       showModalName: '',
-      settings: {}
+      settings: {},
+      show: true,
     }
   },
   methods: {
@@ -86,7 +87,7 @@ export default {
       this.settings = {}
     },
     showPaymentForm() {
-      this.$modal.show('add', {name: 'add', header: 'Add new cost'})
+      this.$modal.show('add', {name: 'AddPaymentForm', header: 'Add new cost'})
     },
 
   },

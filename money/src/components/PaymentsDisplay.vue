@@ -18,7 +18,7 @@
                 <td>{{ item.date }}</td>
                 <td>{{ item.category }}</td>
                 <td>{{ item.value }}</td>
-                <td><button @click="showPaymentMenu">Edit</button></td>
+                <td><button @click="showPaymentMenu(idx)">Edit</button></td>
             </tr>
             <tr class="item">
                 <td>Total</td>
@@ -49,8 +49,9 @@ export default {
         }
     },
     methods: {
-        showPaymentMenu () {
-            this.$modal.show('add', {header: 'Edit my cost'})
+        showPaymentMenu (num) {
+            // console.log(num)
+            this.$modal.show('add', {header: 'Edit my cost', name: 'SinglePaymentMenu', costNumber: num})
         }
     }
  }

@@ -4,8 +4,9 @@
     <!-- <div :class="wrapper">
     <div :class="header"></div> -->
     <div :class="content">
-         <AddPaymentForm @addNewPayment="addNewPaymentD" :categories="categories" v-if="settings.name === 'add'"/>
-         <SinglePaymentMenu  v-if="settings.name === 'edit'"/>
+      <!-- <component :is="settings.name" /> -->
+         <AddPaymentForm @addNewPayment="addNewPaymentD" :categories="categories" v-if="settings.name === 'AddPaymentForm'"/>
+         <SinglePaymentMenu  v-if="settings.name === 'SinglePaymentMenu'" :num="settings.costNumber" />
       <!-- <AuthForm v-if="settings.content === 'authform'" /> -->
     </div>
     <div :class="footer">
@@ -44,9 +45,16 @@ export default {
 
 <style lang="scss" scoped module>
     .wrapper {
-        position: absolute;
-        background: #eee;
-        top: 50px;
+            position: absolute;
+            background: #eee;
+            margin: auto;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            width: fit-content;
+            height: fit-content;
+            padding: 20px;
     }
 </style>
  

@@ -21,6 +21,9 @@ export default new Vuex.Store({
     addNewCategoryData (state, payload) {
       state.categoryList.push(payload)
     },
+    deletePayment (state, payload) {
+      state.paymentsList.splice(payload, 1)
+    },
    
   },
 
