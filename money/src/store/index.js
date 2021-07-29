@@ -24,6 +24,12 @@ export default new Vuex.Store({
     deletePayment (state, payload) {
       state.paymentsList.splice(payload, 1)
     },
+    editPayment (state, {position, data}) {
+      state.paymentsList.splice(position, 1, data)
+      // console.log(state)
+      // console.log(position)
+      // console.log(data)
+    },
    
   },
 

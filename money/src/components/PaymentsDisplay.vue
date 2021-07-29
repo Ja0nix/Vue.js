@@ -18,7 +18,7 @@
                 <td>{{ item.date }}</td>
                 <td>{{ item.category }}</td>
                 <td>{{ item.value }}</td>
-                <td><button @click="showPaymentMenu(idx)">Edit</button></td>
+                <td><button @click="showPaymentMenu(idx, item.value, item.category, item.date)">Edit</button></td>
             </tr>
             <tr class="item">
                 <td>Total</td>
@@ -46,12 +46,12 @@ export default {
     computed: {
         getFPV(){
             return this.$store.getters.getFullPaymentsValue
-        }
+        },
     },
     methods: {
-        showPaymentMenu (num) {
-            // console.log(num)
-            this.$modal.show('add', {header: 'Edit my cost', name: 'SinglePaymentMenu', costNumber: num})
+        showPaymentMenu (num, sum, category, date) {
+            console.log(num, sum, category, date)
+            this.$modal.show('add', {header: 'Edit my cost', name: 'SinglePaymentMenu', costNumber: num, costSum: sum, costCategory: category, costDate: date, })
         }
     }
  }

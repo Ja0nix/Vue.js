@@ -6,7 +6,7 @@
     <div :class="content">
       <!-- <component :is="settings.name" /> -->
          <AddPaymentForm @addNewPayment="addNewPaymentD" :categories="categories" v-if="settings.name === 'AddPaymentForm'"/>
-         <SinglePaymentMenu  v-if="settings.name === 'SinglePaymentMenu'" :num="settings.costNumber" />
+         <SinglePaymentMenu  v-if="settings.name === 'SinglePaymentMenu'" :categories="categories" :num="settings.costNumber" :sum="settings.costSum" :category="settings.costCategory" :date="settings.costDate"/>
       <!-- <AuthForm v-if="settings.content === 'authform'" /> -->
     </div>
     <div :class="footer">
