@@ -12,8 +12,9 @@
 
       <AddCategory @addNewCategory="addNewCat" v-show="show" />
       <PaymentsDisplay :items="paymentsList" />
-      <PaymentMenu @addNewPayment="addNewPaymentD" :categories="categoryList" v-if="showModalName" :settings="settings"/>
-
+      <transition name="modalWindow" >
+        <PaymentMenu @addNewPayment="addNewPaymentD" :categories="categoryList" v-if="showModalName" :settings="settings"/>
+      </transition>
       <div id="nav">
         <router-link to="/">Home</router-link> |
         <router-link to="/about">About</router-link>
@@ -129,4 +130,12 @@ export default {
     margin: 30px auto;
     font-size: 16px;
   }
+</style>
+<style lang="scss">
+.modalWindow-enter-active, .modalWindow-leave-active {
+  transition: opacity 0.5s;
+}
+.modalWindow-enter, .modalWindow-leave-to {
+  opacity: 0;
+}
 </style>
