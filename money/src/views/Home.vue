@@ -9,6 +9,7 @@
       <a href="/add/payment/Entertainment?value=2000" :class="[$style.newCost]">Entertainment 2000</a>
       <br>
       <button :class="[$style.newCost]" @click="showPaymentForm">ADD NEW COST+</button>
+      <button :class="[$style.newCost]" @click="show = !show">ADD NEW CATEGORY+</button>
 
       <AddCategory @addNewCategory="addNewCat" v-show="show" />
       <PaymentsDisplay :items="paymentsList" />
@@ -27,10 +28,10 @@
 <script>
 import { mapMutations} from 'vuex'
 // @ is an alias to /src
-import PaymentsDisplay from '@/components/PaymentsDisplay.vue'
+import PaymentsDisplay from '../components/PaymentsDisplay.vue'
 // import AddPaymentForm from '@/components/AddPaymentForm.vue'
-import AddCategory from '@/components/AddCategory.vue'
-import PaymentMenu from '@/components/PaymentMenu.vue'
+import AddCategory from '../components/AddCategory.vue'
+import PaymentMenu from '../components/PaymentMenu.vue'
 
 export default {
   name: 'Home',
@@ -45,7 +46,7 @@ export default {
       // paymentsList: [],
       showModalName: '',
       settings: {},
-      show: true,
+      show: false,
     }
   },
   methods: {
