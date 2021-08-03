@@ -2,7 +2,6 @@ import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import VueRouter from 'vue-router'
 import Home from '../views/Home'
-import ModalWindow from '../plugins/ModalWindow/index'
 
 const localVue = createLocalVue()
 
@@ -22,44 +21,31 @@ describe('Home.vue', () => {
       addNewPaymentData: jest.fn(),
       fetchCategories: jest.fn(),
       fetchPaymentsData: jest.fn(),
-      // fetchPaymentsData: () => [
-      //   { "id": 1, "date": "20.03.2020", "category": "Food", "value": 169 },
-      //   { "id": 2, "date": "21.03.2020", "category": "Transport", "value": 50 }
-      // ],
-      // fetchCategories: () => ['Food', 'Transport'],
     }
     getters = {
-      getPaymentsList: () => [
-        { "id": 1, "date": "20.03.2020", "category": "Food", "value": 169 },
-        { "id": 2, "date": "21.03.2020", "category": "Transport", "value": 50 }
-      ],
-      getCategoryList: () => ['Food', 'Transport'],
-      // getPaymentsList: jest.fn(),
-      // getCategoryList: jest.fn(),
+      getPaymentsList: jest.fn(),
+      getCategoryList: jest.fn(),
     }
     store = new Vuex.Store({
       actions,
       getters
     })
     modal = {
+        show: jest.fn(),
         mocks: {
+          // [Vue warn]: Error in created hook: "TypeError: Cannot read property 'EventBus' of undefined"
             $EventBus: {
                 $emit() {},
                 $on() {}
             },
-            paymentsList: () => [
-              { "id": 1, "date": "20.03.2020", "category": "Food", "value": 169 },
-              { "id": 2, "date": "21.03.2020", "category": "Transport", "value": 50 }
-            ],
-            categoryList: () => ['Food', 'Transport'],
         }
     }
   })
 
-  // проверка наличия кнопки в разметке
+  // проверка наличия кнопки в разметке  
   it('имеет кнопку', () => {
-    const wrapper = shallowMount(Home, ModalWindow, { store, localVue, modal})
+    const wrapper = shallowMount(Home, { store, localVue, modal })
     expect(wrapper.find('button')).toEqual({"selector": "button"})
-  })
-  
+})
+
 })
