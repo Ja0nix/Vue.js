@@ -40,7 +40,7 @@ export default {
    props: {
     items: {
         type: Array,
-        default: () => ({}),
+        default: () => ([]),
     },
     },
     computed: {
@@ -53,6 +53,7 @@ export default {
             console.log(num, sum, category, date)
             this.$modal.show('add', {header: 'Edit my cost', name: 'SinglePaymentMenu', costNumber: num, costSum: sum, costCategory: category, costDate: date, })
         }
+
     }
  }
 </script>
