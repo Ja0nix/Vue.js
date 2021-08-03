@@ -1,23 +1,40 @@
 <template>
-  <div>
-    <input placeholder="Category" v-model="newCategory" />
+  <div name="addcategoryform">
+    <input placeholder="Category" v-model="newCategory" @input="onType"/>
     <button @click="onSaveClick">Add new category!</button>
+    <p name="showCat" v-if="showCat">New category {{ newCat }} successfully added!</p>
+    <p name="showEr" v-if="showEr">Type category name!</p>
   </div>
 </template>
  
 <script>
 export default {
+  name: 'AddCategory',
+  props: {
+    newCat: String
+  },
   data () {
     return {
       newCategory: '',
+      showCat: false,
+      showEr: false,
     }
   },
   methods: {
     onSaveClick () {
-      this.$emit('addNewCategory', this.newCategory)
+      if(this.newCategory != '') {
+        this.showCat = true;
+        this.newCat = this.newCategory;
+        this.$emit('addNewCategory', this.newCategory);
+      } else {
+        this.showEr = true;
+      }
+    },
+    onType () {
+      this.showCat = false
+      this.showEr = false
     },
   }
-
 }
 </script>
  
