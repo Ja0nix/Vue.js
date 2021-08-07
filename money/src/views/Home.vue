@@ -8,45 +8,73 @@
     <v-divider></v-divider>
     <v-row no-gutters justify="space-between" class="my-6">
         <h2>Quick add:</h2>
-        <v-btn to="/add/payment/Food?value=200" color="light-green darken-3" dark flat>Food 200</v-btn>
-        <v-btn to="/add/payment/Transport?value=50" color="light-green darken-3" dark flat>Transport 50</v-btn>
-        <v-btn to="/add/payment/Entertainment?value=2000" color="light-green darken-3" dark flat>Entertainment 2000</v-btn>
+        <v-btn to="/add/payment/Food?value=200" color="light-green darken-3" dark flat class="my-2" depressed>Food 200</v-btn>
+        <v-btn to="/add/payment/Transport?value=50" color="light-green darken-3" dark flat class="my-2" depressed>Transport 50</v-btn>
+        <v-btn to="/add/payment/Entertainment?value=2000" color="light-green darken-3" dark flat class="my-2" depressed>Entertainment 2000</v-btn>
     </v-row>
+
     <v-divider></v-divider>
-    <v-row>
-      <v-col-12>
+
+    <v-row no-gutters class="my-6">
+      <v-col cols="6" align="left">
         <v-dialog
           v-model="dialog"
-          width="500"
+          width="fit-content"
         >
         <template v-slot:activator="{ on }">
           <v-btn
-            color="red lighten-2"
+            color="amber darken-1"
             dark
+            depressed
             v-on="on"
           >
             ADD NEW COST+
           </v-btn>
         </template>
 
-        <v-card>
-          <PaymentMenu @addNewPayment="addNewPaymentD" :categories="categoryList" :settings="settings"/>
+        <v-card class="px-6">
+          <AddPaymentForm @addNewPayment="addNewPaymentD" :categories="categoryList"/>
         </v-card>
       </v-dialog>
 
-      </v-col-12>
-    </v-row>
-      <main>
-        
-        <button :class="[$style.newCost]" @click="showPaymentForm">ADD NEW COST+</button>
-        <button :class="[$style.newCost]" @click="show = !show">ADD NEW CATEGORY+</button>
+      </v-col>
 
-        <AddCategory @addNewCategory="addNewCat" v-show="show" />
-        <PaymentsDisplay :items="paymentsList" />
-        <transition name="modalWindow" >
-          <PaymentMenu @addNewPayment="addNewPaymentD" :categories="categoryList" v-if="showModalName" :settings="settings"/>
-        </transition>
-      </main>
+      <v-col cols="6" align="right">
+        <v-dialog
+          v-model="show"
+          width="fit-content"
+        >
+        <template v-slot:activator="{ on }">
+          <v-btn
+            color="amber darken-1"
+            dark
+            depressed
+            v-on="on"
+          >
+            ADD NEW CATEGORY+
+          </v-btn>
+        </template>
+
+        <v-card class="px-6">
+          <AddCategory @addNewCategory="addNewCat" />
+        </v-card>
+      </v-dialog>
+
+      </v-col>
+    </v-row>
+
+    <v-divider></v-divider>
+
+    <v-row no-gutters class="my-6">
+      <v-col cols="6">
+      <PaymentsDisplay :items="paymentsList" />
+      </v-col>
+
+      <v-col cols="6">
+        Место для диаграммы "расходы по категориям"
+      </v-col>
+    </v-row>
+
   </v-container>
 </template>
 
@@ -54,17 +82,17 @@
 import { mapMutations} from 'vuex'
 // @ is an alias to /src
 import PaymentsDisplay from '../components/PaymentsDisplay.vue'
-// import AddPaymentForm from '@/components/AddPaymentForm.vue'
+import AddPaymentForm from '@/components/AddPaymentForm.vue'
 import AddCategory from '../components/AddCategory.vue'
-import PaymentMenu from '../components/PaymentMenu.vue'
+// import PaymentMenu from '../components/PaymentMenu.vue'
 
 export default {
   name: 'Home',
   components: {
     PaymentsDisplay,
-    // AddPaymentForm,
+    AddPaymentForm,
     AddCategory,
-    PaymentMenu
+    // PaymentMenu
   },
   data () {
     return {
