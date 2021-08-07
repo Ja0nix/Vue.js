@@ -84,7 +84,6 @@ import { mapMutations} from 'vuex'
 import PaymentsDisplay from '../components/PaymentsDisplay.vue'
 import AddPaymentForm from '@/components/AddPaymentForm.vue'
 import AddCategory from '../components/AddCategory.vue'
-// import PaymentMenu from '../components/PaymentMenu.vue'
 
 export default {
   name: 'Home',
@@ -92,11 +91,9 @@ export default {
     PaymentsDisplay,
     AddPaymentForm,
     AddCategory,
-    // PaymentMenu
   },
   data () {
     return {
-      // paymentsList: [],
       showModalName: '',
       settings: {},
       show: false,
@@ -116,25 +113,7 @@ export default {
      addNewCat(value){
        this.addNewCategoryData(value)
      },
-    fetchData () {
-        return [
-          {
-            date: '28.03.2020',
-            category: 'Food',
-            value: 169,
-          },
-          {
-            date: '24.03.2020',
-            category: 'Transport',
-            value: 360,
-          },
-          {
-            date: '24.03.2020',
-            category: 'Food',
-            value: 532,
-          },
-        ]
-    },
+    
     onShown(settings) {
       this.showModalName = settings.name
       this.settings = settings
@@ -143,10 +122,6 @@ export default {
       this.showModalName = ''
       this.settings = {}
     },
-    showPaymentForm() {
-      this.$modal.show('add', {name: 'AddPaymentForm', header: 'Add new cost'})
-    },
-
   },
   computed: {
     paymentsList(){
@@ -157,9 +132,6 @@ export default {
     },
   },
   created () {
-      // this.paymentsList = this.fetchData()
-      // this.$store.commit('setPaymentsListData', this.fetchData())
-      // this.updatePaymentsListData(this.fetchData())
       this.$store.dispatch('fetchCategories')
       this.$store.dispatch('fetchPaymentsData')
       this.$modal.EventBus.$on('show', this.onShown)
@@ -168,30 +140,3 @@ export default {
 
   }
 </script>
-
-<style lang="scss" module>
-  .wrapper {
-    margin: 0 auto;
-  }
-  .title {
-    font-size: 40px;
-    margin-bottom: 50px;
-  }
-  .newCost {
-    background: linear-gradient(45deg, #49a09d, #5f2c82);
-    box-shadow: 0 0 20px rgba(0,0,0,0.1);
-    color: white;
-    border: none;
-    padding: 15px 20px;
-    margin: 30px auto;
-    font-size: 16px;
-  }
-</style>
-<style lang="scss">
-.modalWindow-enter-active, .modalWindow-leave-active {
-  transition: opacity 0.5s;
-}
-.modalWindow-enter, .modalWindow-leave-to {
-  opacity: 0;
-}
-</style>
