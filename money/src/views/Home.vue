@@ -55,8 +55,17 @@
           </v-btn>
         </template>
 
-        <v-card class="px-6">
+        <v-card class="px-6" align="center">
           <AddCategory @addNewCategory="addNewCat" />
+          <v-btn
+            color="amber darken-1"
+            dark
+            depressed
+            @click="show = false"
+            class="mb-6"
+          >
+            Close
+          </v-btn>
         </v-card>
       </v-dialog>
 
@@ -94,8 +103,6 @@ export default {
   },
   data () {
     return {
-      showModalName: '',
-      settings: {},
       show: false,
       dialog: false,
     }
@@ -113,15 +120,6 @@ export default {
      addNewCat(value){
        this.addNewCategoryData(value)
      },
-    
-    onShown(settings) {
-      this.showModalName = settings.name
-      this.settings = settings
-    },
-    onHide() {
-      this.showModalName = ''
-      this.settings = {}
-    },
   },
   computed: {
     paymentsList(){
@@ -134,8 +132,6 @@ export default {
   created () {
       this.$store.dispatch('fetchCategories')
       this.$store.dispatch('fetchPaymentsData')
-      this.$modal.EventBus.$on('show', this.onShown)
-      this.$modal.EventBus.$on('hide', this.onHide)
     },
 
   }
