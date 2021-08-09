@@ -1,14 +1,35 @@
 <template>
-  <div>
-    <input placeholder="Value" v-model="value"  />
-    <select v-model="category">
-      <option v-for="(item,idx) in categories" :value="item" :key="idx">
-       {{ item }}
-      </option>
-    </select>
-    <input placeholder="Date" v-model="date" />
-    <button @click="onSaveClick">Save!</button>
-  </div>
+  <v-container>
+    <v-text-field
+      label="Value"
+      v-model="value"
+      required
+    ></v-text-field>
+
+    <v-select
+      :items = categories
+      v-model="category"
+      label="Category"
+      required
+    ></v-select>
+
+    <v-text-field
+      label="Date"
+      v-model="date"
+    ></v-text-field>
+
+    <v-btn
+      color="light-green darken-3"
+      dark
+      depressed
+      @click="onSaveClick"
+      class="mb-6"
+    >
+      Save!
+    </v-btn>
+
+    <p name="showErr" v-if="showErr" class="body-1">All fields are required</p>
+  </v-container>
 </template>
  
 <script>
@@ -19,6 +40,7 @@ export default {
       value: this.$route.query.value,
       category: this.$route.params.category,
       date: '',
+      showErr: false,
     }
   },
   computed: {
@@ -29,12 +51,6 @@ export default {
       const y = today.getFullYear()
       return `${d}.${m}.${y}`
     },
-    // categoryDirectLinkAddPayment() {
-    //   return this.$route.params.category
-    // },
-    // sumDirectLinkAddPayment() {
-    //   return this.$route.params.sum
-    // }
   },
   methods: {
     onSaveClick () {
@@ -43,55 +59,15 @@ export default {
         category: this.category,
         date: this.date || this.getCurrentDate,
       }
-      this.$emit('addNewPayment', data)
+      if ((this.value != undefined) && (this.category != undefined)) {
+        this.$emit('addNewPayment', data)
+      } else {
+        this.showErr = true
+      }
     },
-  //   onLoadSave(){
-  //     console.log(this.value.length)
-  //     console.log(this.date + this.category + this.value) 
-  //     if(this.value.length != 0 && this.category.length != 0) {
-  //       const data = {
-  //         value: +this.value,
-  //         category: this.category,
-  //         date: this.date || this.getCurrentDate,
-  //       }
-  //       this.$emit('addNewPaymentAuto', data)
-  //     }
-
-  //   }
   },
   created() {
     this.date = this.getCurrentDate
   },
-  
-//   mounted: function () {
-//   this.$nextTick(function () {
-//     // Код, который будет запущен только после
-//     // обновления всех представлений
-//     this.onLoadSave()
-//   })
-// }
-
 }
 </script>
- 
-<style lang="scss" scoped module>
-    button {
-        background: linear-gradient(45deg, #49a09d, #5f2c82);
-        box-shadow: 0 0 20px rgba(0,0,0,0.1);
-        color: white;
-        font-size: 16px;
-        border: none;
-        padding: 15px 20px;
-        margin: 30px auto;
-    }
-    input, select {
-        background: linear-gradient(45deg, #438f8d31, #602c822c);
-        box-shadow: 0 0 20px rgba(0,0,0,0.1);
-        color: black;
-        font-weight: bold;
-        font-size: 16px;
-        border: none;
-        padding: 15px 20px;
-        margin: 30px auto;
-    }
-</style>

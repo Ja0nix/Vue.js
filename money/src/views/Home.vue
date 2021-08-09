@@ -33,7 +33,12 @@
         </template>
 
         <v-card class="px-6">
-          <AddPaymentForm @addNewPayment="addNewPaymentD" :categories="categoryList"/>
+          <v-card-title>
+            <span class="text-h5">Add new cost</span>
+          </v-card-title>
+          <v-card-text>
+            <AddPaymentForm @addNewPayment="addNewPaymentD" :categories="categoryList"/>
+          </v-card-text>
         </v-card>
       </v-dialog>
 
