@@ -81,7 +81,7 @@
 
     <v-row no-gutters class="my-6">
       <v-col cols="6">
-      <PaymentsDisplay :items="paymentsList" />
+      <PaymentsDisplay :items="paymentsList" :categories="categoryList" />
       </v-col>
 
       <v-col cols="6">

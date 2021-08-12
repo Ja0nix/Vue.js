@@ -1,5 +1,57 @@
 <template>
   <div>
+
+      <v-data-table
+    :headers="headers"
+    :items="items"
+    class="elevation-1"
+  >
+    <template v-slot:item.value="{ item }">
+      <v-chip
+        :color="getColor(item.value)"
+        dark
+      >
+        {{ item.value }}
+      </v-chip>
+    </template>
+    <template v-slot:item.edit="{ item }">
+      <v-btn
+            color="light-green darken-3"
+            dark
+            depressed
+            @click="showPaymentMenu((item.id - 1), item.value, item.category, item.date)"
+            class="mb-6"
+            >
+            Edit
+        </v-btn>
+        <v-dialog
+          v-model="editMenu"
+          width="fit-content"
+        >
+        <template v-slot:activator="{ on }">
+          <v-btn
+            color="amber darken-1"
+            dark
+            depressed
+            v-on="on"
+          >
+            Edit2
+          </v-btn>
+        </template>
+
+        <v-card class="px-6">
+          <v-card-title>
+            <span class="text-h5">Edit</span>
+          </v-card-title>
+          <v-card-text>
+            <SinglePaymentMenu :categories="categories" :num="(item.id - 1)" :sum="item.value" :category="item.category" :date="item.date"/>
+          </v-card-text>
+        </v-card>
+      </v-dialog>
+
+    </template>
+  </v-data-table>
+
     <table class="table">
         <thead>
             <tr>
@@ -34,14 +86,31 @@
  
 <script>
 
+import SinglePaymentMenu from './SinglePaymentMenu'
 
 export default {
    name: 'PaymentsDisplay',
+   components: {
+    SinglePaymentMenu,
+  },
+   data() {
+       return {
+           headers: [
+          { text: '#', value: 'id' },
+          { text: 'date', value: 'date' },
+          { text: 'category', value: 'category' },
+          { text: 'value', value: 'value' },
+          { text: 'edit', value: 'edit', sortable: false },
+        ],
+        editMenu: false,
+       }
+   },
    props: {
-    items: {
-        type: Array,
-        default: () => ([]),
-    },
+        items: {
+            type: Array,
+            default: () => ([]),
+        },
+        categories: Array,
     },
     computed: {
         getFPV(){
@@ -52,7 +121,12 @@ export default {
         showPaymentMenu (num, sum, category, date) {
             console.log(num, sum, category, date)
             this.$modal.show('add', {header: 'Edit my cost', name: 'SinglePaymentMenu', costNumber: num, costSum: sum, costCategory: category, costDate: date, })
-        }
+        },
+        getColor (value) {
+            if (value > 400) return 'red'
+            else if (value > 200) return 'orange'
+            else return 'green'
+        },
 
     }
  }
