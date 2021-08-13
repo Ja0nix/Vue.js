@@ -85,7 +85,7 @@
 </template>
  
 <script>
-
+import { mapMutations} from 'vuex'
 import SinglePaymentMenu from './SinglePaymentMenu'
 
 export default {
@@ -118,6 +118,10 @@ export default {
         },
     },
     methods: {
+        ...mapMutations({
+            deletePayment: 'deletePayment',
+            editPayment: 'editPayment',
+        }),
         showPaymentMenu (num, sum, category, date) {
             console.log(num, sum, category, date)
             this.$modal.show('add', {header: 'Edit my cost', name: 'SinglePaymentMenu', costNumber: num, costSum: sum, costCategory: category, costDate: date, })
