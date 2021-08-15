@@ -85,7 +85,8 @@
       </v-col>
 
       <v-col cols="6">
-        Место для диаграммы "расходы по категориям"
+        <h2>Chart pie</h2>
+        <ChartPie :items="paymentsList"/>
       </v-col>
     </v-row>
 
@@ -98,6 +99,7 @@ import { mapMutations} from 'vuex'
 import PaymentsDisplay from '../components/PaymentsDisplay.vue'
 import AddPaymentForm from '@/components/AddPaymentForm.vue'
 import AddCategory from '../components/AddCategory.vue'
+import ChartPie from "../components/ChartPie.vue";
 
 export default {
   name: 'Home',
@@ -105,6 +107,7 @@ export default {
     PaymentsDisplay,
     AddPaymentForm,
     AddCategory,
+    ChartPie
   },
   data () {
     return {
