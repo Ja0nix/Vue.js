@@ -8,7 +8,7 @@
 
     <v-select
       :items = categories
-      v-model="category"
+      v-model="categoryNew"
       label="Category"
       required
     ></v-select>
@@ -17,27 +17,29 @@
       label="Date"
       v-model="date"
     ></v-text-field>
-
+    <v-divider></v-divider>
     <v-btn
       color="light-green darken-3"
       dark
       depressed
-      @click="onSaveClick"
+      @click="savePayment"
+      v-on:click="$emit('close')"
       class="mb-6"
     >
       Save!
     </v-btn>
+    <v-divider></v-divider>
+    <v-btn
+      color="light-green darken-1"
+      dark
+      depressed
+      @click="deletePaymentS"
+      v-on:click="$emit('close')"
+      class="mb-6"
+    >
+      Delete Payment!
+    </v-btn>
 
-        <input placeholder="Value" v-model="value"  />
-        <select v-model="category">
-        <option v-for="(item,idx) in categories" :value="category" :key="idx">
-        {{ item }}
-        </option>
-        </select>
-        <input placeholder="Date" v-model="day" />
-      <button @click="savePayment">Save new data</button> 
-
-      <button @click="deletePaymentS">Delete this payment</button>
   </v-container>
 </template>
 
@@ -49,13 +51,14 @@ export default {
     props: {
         num: Number,
         categories: Array,
+        category: String,
         date: String,
         sum: Number,
     },
     data () {
         return {
             value: +this.sum,
-            category: this.category,
+            categoryNew: this.category,
             day: this.date,
             position: this.num,
         }
@@ -71,12 +74,12 @@ export default {
                 position: this.num,
                 data: {
                 value: +this.value,
-                category: this.category,
+                category: this.categoryNew,
                 date: this.day,
                 }
         }
             this.editPayment(dataNew)
-            // console.log(dataNew)
+            console.log(dataNew)
 
         },
         deletePaymentS() {
@@ -85,7 +88,3 @@ export default {
     },
 }
 </script>
-
-<style>
-
-</style>

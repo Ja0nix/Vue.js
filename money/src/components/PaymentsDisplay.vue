@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-container>
 
       <v-data-table
     :headers="headers"
@@ -15,27 +15,21 @@
       </v-chip>
     </template>
     <template v-slot:item.edit="{ item }">
-      <v-btn
-            color="light-green darken-3"
-            dark
-            depressed
-            @click="showPaymentMenu((item.id - 1), item.value, item.category, item.date)"
-            class="mb-6"
-            >
-            Edit
-        </v-btn>
         <v-dialog
           v-model="editMenu"
           width="fit-content"
+          :retain-focus="false"
         >
-        <template v-slot:activator="{ on }">
+        <template v-slot:activator="{ on, attrs }">
           <v-btn
             color="amber darken-1"
             dark
             depressed
+            @click="showPaymentMenu((item.id - 1), item.value, item.category, item.date)"
             v-on="on"
+            v-bind="attrs"
           >
-            Edit2
+            Edit
           </v-btn>
         </template>
 
@@ -44,44 +38,24 @@
             <span class="text-h5">Edit</span>
           </v-card-title>
           <v-card-text>
-            <SinglePaymentMenu :categories="categories" :num="(item.id - 1)" :sum="item.value" :category="item.category" :date="item.date"/>
+            <SinglePaymentMenu :categories="categories" :num="num" :sum="sum" :category="category" :date="date" v-on:close="editMenu = false"/>
           </v-card-text>
+          <v-btn
+            color="amber darken-1"
+            dark
+            depressed
+            @click="editMenu = false"
+            class="mb-6"
+          >
+            Close
+          </v-btn>
         </v-card>
       </v-dialog>
 
     </template>
   </v-data-table>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Date</th>
-                <th>Category</th>
-                <th>Value</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="item"
-            v-for="(item, idx) in items"
-            :key="idx">
-                <td>{{ idx + 1 }}</td>
-                <td>{{ item.date }}</td>
-                <td>{{ item.category }}</td>
-                <td>{{ item.value }}</td>
-                <td><button @click="showPaymentMenu(idx, item.value, item.category, item.date)">Edit</button></td>
-            </tr>
-            <tr class="item">
-                <td>Total</td>
-                <td></td>
-                <td></td>
-                <td>{{ getFPV }}</td>
-                <th></th>
-            </tr>
-        </tbody>
-    </table>
-  </div>
+  </v-container>
 </template>
  
 <script>
@@ -103,6 +77,10 @@ export default {
           { text: 'edit', value: 'edit', sortable: false },
         ],
         editMenu: false,
+        num: Number,
+        category: String,
+        date: String,
+        sum: Number,
        }
    },
    props: {
@@ -123,6 +101,13 @@ export default {
             editPayment: 'editPayment',
         }),
         showPaymentMenu (num, sum, category, date) {
+            console.log(num, sum, category, date)
+            this.num = num
+            this.category = category
+            this.date = date
+            this.sum = sum
+        },
+        openPaymentMenuWithData (num, sum, category, date) {
             console.log(num, sum, category, date)
             this.$modal.show('add', {header: 'Edit my cost', name: 'SinglePaymentMenu', costNumber: num, costSum: sum, costCategory: category, costDate: date, })
         },
